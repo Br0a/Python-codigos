@@ -30,3 +30,29 @@ def player_move(icon):
 
 def is_victory(icon):
     if (board[0] == icon and board[1] == icon and board[2] == icon) or \
+        (board[3] == icon and board[4] == icon and board[5] == icon) or \
+        (board[6] == icon and board[7] == icon and board[8] == icon) or \
+        (board[0] == icon and board[3] == icon and board[6] == icon) or \
+        (board[1] == icon and board[4] == icon and board[7] == icon) or \
+        (board[2] == icon and board[5] == icon and board[8] == icon) or \
+        (board[0] == icon and board[4] == icon and board[8] == icon) or \
+        (board[2] == icon and board[4] == icon and board[6] == icon):
+        return True
+    else:
+        return False
+    
+while True:
+    print_board()
+    player_move('X')
+    print_board()
+    if is_victory('X'):
+        print("Player 1 wins! Congratulations!")
+        break
+    elif ' ' not in board:
+        print("It's a tie!")
+        break
+    player_move('O')
+    if is_victory('O'):
+        print_board()
+        print("Player 2 wins! Congratulations!")
+        break
