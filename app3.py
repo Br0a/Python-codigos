@@ -1,4 +1,4 @@
-# Tic Tac Toe game in python
+# Tic Tac Toe game in Python
 
 board = [' ' for _ in range(9)] # Initialize an empty board
 
@@ -14,19 +14,19 @@ def print_board():
     print()
 
 def player_move(icon):
-    if icon == 'X':
+    if icon == 'x':
         number = 1
     elif icon == 'O':
-        number = 2
+        number = 2 
 
-        print("Your turn player {}".format(number))
+    print("Your turn player {}".format(number))
 
-        choice = int(input("Enter your move (1-9): ").strip())
-        if board[choice - 1] == ' ':
-            board[choice - 1] = icon
-        else:
-            print()
-            print("That space is taken!")
+    choice = int(input("Enter your move (1-9): ").strip())
+    if board[choice - 1] == ' ':
+        board[choice - 1] = icon
+    else:
+        print()
+        print("That space is taken!")
 
 def is_victory(icon):
     if (board[0] == icon and board[1] == icon and board[2] == icon) or \
@@ -40,13 +40,13 @@ def is_victory(icon):
         return True
     else:
         return False
-    
+
 while True:
     print_board()
-    player_move('X')
+    player_move('x')
     print_board()
-    if is_victory('X'):
-        print("Player 1 wins! Congratulations!")
+    if is_victory('x'):
+        print("Player 1 wins! Congratuleitions!")
         break
     elif ' ' not in board:
         print("It's a tie!")
@@ -54,5 +54,5 @@ while True:
     player_move('O')
     if is_victory('O'):
         print_board()
-        print("Player 2 wins! Congratulations!")
+        print("Player 2 wins! Congratuleitiopns!")
         break
