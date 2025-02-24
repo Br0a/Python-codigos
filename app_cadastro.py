@@ -7,7 +7,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 '''
-sys: Usado para manipular o sistema, como encerar a aplicação.
+sys: Usado para manipular o sistema, como encerrar a aplicação.
 
 pandas: Biblioteca para manipulação de dados, usada aqui para criar um DataFrame e salvar em Excel.
 
@@ -25,10 +25,11 @@ class CadastroAlunos(QWidget):
         self.alunos = []
         self.initUI()
         '''
-    CadastroAlunos: Classe principal que herda de QWidget, que é base para todas as interfaces gráficas no PyQt5.
+        CadastroAlunos: Classe principal que herda de QWidget, que é a base para todas as interfaces gráficas no PyQt5.
 
-    init: Método construtor que inicializa a lista de alunos e chama initUI para configurar a interface.
+init: Método construtor que inicializa a lista alunos e chama initUI para configurar a interface.
         '''
+
     def initUI(self):
         self.setGeometry(100, 100, 400, 200)
         self.setWindowTitle('Cadastro de Alunos')
@@ -61,6 +62,24 @@ class CadastroAlunos(QWidget):
 
         self.remetente = "concursopilargames@gmail.com"
         self.senha = "@PilarMaturana2"
+        '''
+        setGeometry: Define a posição e o tamanho da janela.
+
+setWindowTitle: Define o título da janela.
+
+QGridLayout: Layout que organiza os widgets em uma grade.
+
+QLabel: Cria rótulos para os campos de entrada.
+
+QLineEdit: Cria campos de entrada de texto.
+
+QPushButton: Cria botões que executam ações quando clicados.
+
+clicked.connect: Conecta o evento de clique do botão a um método.
+
+remetente e senha: Configurações do e-mail do remetente.
+       
+        '''
 
     def adicionar_aluno(self):
         nome = self.input_nome.text()
@@ -74,6 +93,16 @@ class CadastroAlunos(QWidget):
             self.input_email.clear()
         else:
             QMessageBox.warning(self, 'Erro', 'Preencha todos os campos!')
+            '''
+            text(): Obtém o texto dos campos de entrada.
+
+append: Adiciona um dicionário com os dados do aluno à lista alunos.
+
+clear: Limpa os campos de entrada após adicionar o aluno.
+
+QMessageBox.warning: Exibe uma mensagem de erro se algum campo estiver vazio.
+           
+            '''
 
     def cadastrar_e_enviar_emails(self):
         if self.alunos:
@@ -82,16 +111,27 @@ class CadastroAlunos(QWidget):
 
             for aluno in self.alunos:
                 self.enviar_email(aluno['Email'])
-            
+
             QMessageBox.information(self, 'Sucesso', 'Cadastro completo e emails enviados!')
         else:
             QMessageBox.warning(self, 'Erro', 'Nenhum aluno cadastrado!')
-    
+
+            '''
+            pd.DataFrame: Cria um DataFrame com a lista de alunos.
+
+to_excel: Salva o DataFrame em um arquivo Excel.
+
+enviar_email: Chama o método para enviar e-mail para cada aluno.
+
+QMessageBox.information: Exibe uma mensagem de sucesso.
+
+            '''
+
     def enviar_email(self, destinatario):
         msg = MIMEMultipart()
         msg['From'] = self.remetente
         msg['To'] = destinatario
-        msg['Subject'] = "Comfirmação de Inscrição - Concurso de Jogos"
+        msg['Subject'] = "Confirmação de Inscrição - Concurso de Jogos"
 
         corpo = "Olá, sua inscrição no concurso de jogos foi confirmada!"
         msg.attach(MIMEText(corpo, 'plain'))
@@ -102,9 +142,36 @@ class CadastroAlunos(QWidget):
         texto = msg.as_string()
         servidor.sendmail(self.remetente, destinatario, texto)
         servidor.quit()
+        '''
+        MIMEMultipart: Cria uma mensagem de e-mail com múltiplas partes.
+
+MIMEText: Adiciona o corpo do e-mail.
+
+smtplib.SMTP: Conecta ao servidor SMTP do Gmail.
+
+starttls: Inicia uma conexão segura.
+
+login: Faz login no servidor de e-mail.
+
+sendmail: Envia o e-mail.
+
+quit: Fecha a conexão com o servidor.
+       
+        '''
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = CadastroAlunos()
     ex.show()
     sys.exit(app.exec_())
+    '''
+    QApplication: Cria a aplicação PyQt5.
+
+CadastroAlunos: Instancia a classe principal.
+
+show: Exibe a janela.
+
+app.exec_: Inicia o loop de eventos da aplicação.
+
+sys.exit: Encerra a aplicação corretamente.
+'''
